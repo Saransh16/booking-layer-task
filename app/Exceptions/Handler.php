@@ -4,6 +4,7 @@ namespace App\Exceptions;
 
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Throwable;
+use Illuminate\Validation\ValidationException as BaseValidationException;
 
 class Handler extends ExceptionHandler
 {
@@ -22,7 +23,7 @@ class Handler extends ExceptionHandler
      * @var array<int, class-string<\Throwable>>
      */
     protected $dontReport = [
-        //
+        \Illuminate\Validation\ValidationException::class
     ];
 
     /**
@@ -37,14 +38,42 @@ class Handler extends ExceptionHandler
     ];
 
     /**
-     * Register the exception handling callbacks for the application.
+     * Report or log an exception.
      *
+     * @param  \Exception  $exception
      * @return void
      */
-    public function register()
+    public function report(Throwable $exception)
     {
-        $this->reportable(function (Throwable $e) {
-            //
-        });
+        parent::report($exception);
+    }
+
+    /**
+     * Render an exception into an HTTP response.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \Exception  $exception
+     * @return \Illuminate\Http\Response
+     */
+    public function render($request, Throwable $exception)
+    {
+        if($request->is('api/*') || $request->expectsJson())
+        {
+            return $this->renderExceptions($request, $exception);
+        }
+
+        return parent::render($request, $exception);
+    }
+
+    protected function renderExceptions($request, $e)
+    {
+        switch($e)
+        {
+            case ($e instanceof BaseValidationException):
+                return response()->error($e->errors(), 422);
+
+            default:
+                return parent::render($request, $e);
+        }
     }
 }
