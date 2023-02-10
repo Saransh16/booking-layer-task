@@ -4,8 +4,8 @@ namespace App\Interfaces;
 
 interface RoomRepositoryInterface
 {
-    public function createRoom(array $roomDetails);
-    public function updateRoom($roomId, array $newDetails);
-    public function getRoomById($roomId);
-    public function getAllRooms();
+    public function create(array $roomDetails);
+    public function update($roomId, array $newDetails);
+    public function get($roomId);
+    public function all();
 }

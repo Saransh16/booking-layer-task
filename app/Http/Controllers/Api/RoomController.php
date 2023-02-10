@@ -20,7 +20,7 @@ class RoomController extends Controller
     {
         $inputs = $request->validated();
 
-        $room = $this->roomService->create($inputs);
+        $room = $this->service->create($inputs);
 
         return response()->success($room);
     }
