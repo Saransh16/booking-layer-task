@@ -2,13 +2,13 @@
 
 namespace App\Services;
 
-use App\Interfaces\RoomRepository as RoomRepositoryInterface;
+use App\Interfaces\RoomRepository;
 
 class RoomService
 {
     protected $roomRepo;
 
-    public function __construct(RoomRepositoryInterface $roomRepo)
+    public function __construct(RoomRepository $roomRepo)
     {
         $this->roomRepo = $roomRepo;
     }

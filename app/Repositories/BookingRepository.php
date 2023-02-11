@@ -9,7 +9,6 @@ use App\Interfaces\BookingRepository as BookingRepositoryInterface;
 class BookingRepository implements BookingRepositoryInterface
 {
     use DatabaseRepositoryTrait;
-
     /**
      * The model associated with the repository.
      *
