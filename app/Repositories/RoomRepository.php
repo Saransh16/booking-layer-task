@@ -4,7 +4,7 @@ namespace App\Repositories;
 
 use App\Models\Room;
 use App\Traits\DatabaseRepositoryTrait;
-use App\Interfaces\RoomRepositoryInterface;
+use App\Interfaces\RoomRepository as RoomRepositoryInterface;
 
 class RoomRepository implements RoomRepositoryInterface
 {

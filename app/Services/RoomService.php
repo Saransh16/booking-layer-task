@@ -2,7 +2,7 @@
 
 namespace App\Services;
 
-use App\Interfaces\RoomRepositoryInterface;
+use App\Interfaces\RoomRepository as RoomRepositoryInterface;
 
 class RoomService
 {

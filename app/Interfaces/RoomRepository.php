@@ -2,7 +2,7 @@
 
 namespace App\Interfaces;
 
-interface RoomRepositoryInterface
+interface RoomRepository
 {
     public function create(array $roomDetails);
     public function update($roomId, array $newDetails);
