@@ -15,9 +15,9 @@ class BookingService
 
     public function create($inputs)
     {
-        $room = $this->bookingRepo->create($inputs);
+        $booking = $this->bookingRepo->create($inputs);
 
-        return $room;
+        return $booking;
     }
 
 }

@@ -14,4 +14,14 @@ class Booking extends Model
         'starts_at',
         'ends_at'
     ];
+
+    /**
+     * Get the room that owns the Booking
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function room()
+    {
+        return $this->belongsTo(Room::class);
+    }
 }
