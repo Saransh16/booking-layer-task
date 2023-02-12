@@ -2,7 +2,7 @@
 
 namespace App\Services;
 
-use App\Repositories\BookingRepository;
+use App\Interfaces\BookingRepository;
 
 class BookingService
 {

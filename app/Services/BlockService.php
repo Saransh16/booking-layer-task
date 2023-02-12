@@ -2,7 +2,7 @@
 
 namespace App\Services;
 
-use App\Repositories\BlockRepository;
+use App\Interfaces\BlockRepository;
 
 class BlockService
 {
