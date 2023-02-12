@@ -26,6 +26,16 @@ class Room extends Model
         return $this->hasMany(Booking::class, 'room_id', 'id');
     }
 
+    /**
+     * Get all of the blocks for the Room
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function blocks()
+    {
+        return $this->hasMany(Booking::class, 'room_id', 'id');
+    }
+
     public function isAvailable($starts_at, $ends_at)
     {
         $booking_count = $this->bookings->where('starts_at', Carbon::parse($starts_at)->format('Y-m-d'))
