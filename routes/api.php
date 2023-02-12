@@ -8,5 +8,8 @@ use App\Http\Controllers\Api\BookingController;
 //rooms apis
 Route::post('/rooms', [RoomController::class, 'create']);
 
+//blocking apis
+Route::post('/block', [BlockController::class, 'create']);
+
 //booking apis
 Route::post('/bookings', [BookingController::class, 'create']);
