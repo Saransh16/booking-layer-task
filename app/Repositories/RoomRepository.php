@@ -25,9 +25,14 @@ class RoomRepository implements RoomRepositoryInterface
         $this->bookingRepo = $bookingRepo;
     }
 
-    public function totalCapacity()
+    public function totalCapacity($room_ids = null)
     {
         $query = $this->query();
+
+        if($room_ids && count($room_ids))
+        {
+            $query = $query->whereIn('id', $room_ids);
+        }
 
         $query = $query->sum('capacity');
 
