@@ -37,12 +37,16 @@ class RoomService
 
     public function dailyOccupancy($date, $room_ids)
     {
-        $capacity = $this->roomRepo->totalCapacity($room_ids);
-
         $occupancy = $this->bookingRepo->totalDailyOccupancy($date, $room_ids);
+
+        if(!$occupancy) return ['success' => false];
+
+        $capacity = $this->roomRepo->totalCapacity($room_ids);
 
         $block = $this->blockRepo->totalDailyBlock($date, $room_ids);
 
         $occupancy_rate = ($occupancy) / ($capacity - $block);
+
+        return ['success' => true, 'occupancy_rate' => $occupancy_rate];
     }
 }

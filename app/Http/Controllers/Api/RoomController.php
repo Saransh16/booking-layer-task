@@ -30,8 +30,10 @@ class RoomController extends Controller
     {
         $room_ids = json_decode(request()->all()['room_ids'], true);
 
-        $occupancy = $this->service->dailyOccupancy($date, $room_ids);
+        $data = $this->service->dailyOccupancy($date, $room_ids);
 
-        return response()->success($occupancy);
+        if(!$data['success']) return response()->error('No booking for the date');
+
+        return response()->success(['occupancy_rate' => $data['occupancy_rate']]);
     }
 }
