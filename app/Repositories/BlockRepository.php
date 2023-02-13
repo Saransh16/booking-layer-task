@@ -15,4 +15,15 @@ class BlockRepository implements BlockRepositoryInterface
      * @var \App\Models\Block
      */
     private $model = Block::class;
+
+    public function totalDailyBlock($date)
+    {
+        $query = $this->query();
+
+        $block = $query->where('starts_at', '<=', $date)
+                            ->where('ends_at', '>=', $date)
+                            ->count();
+
+        return $block;
+    }
 }

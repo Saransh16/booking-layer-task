@@ -3,6 +3,7 @@
 namespace App\Repositories;
 
 use App\Models\Room;
+use App\Interfaces\BookingRepository;
 use App\Traits\DatabaseRepositoryTrait;
 use App\Interfaces\RoomRepository as RoomRepositoryInterface;
 
@@ -16,4 +17,20 @@ class RoomRepository implements RoomRepositoryInterface
      * @var \App\Models\Room
      */
     private $model = Room::class;
+
+    protected $bookingRepo;
+
+    public function __construct(BookingRepository $bookingRepo)
+    {
+        $this->bookingRepo = $bookingRepo;
+    }
+
+    public function totalCapacity()
+    {
+        $query = $this->query();
+
+        $query = $query->sum('capacity');
+
+        return $query;
+    }
 }

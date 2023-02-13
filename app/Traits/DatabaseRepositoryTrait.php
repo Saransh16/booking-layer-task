@@ -84,4 +84,14 @@ trait DatabaseRepositoryTrait
     {
         return ($model instanceof EloquentModel) ? $model->update($attributes) : $this->get($model)->update($attributes);
     }
+
+    /**
+     * Begin querying the model.
+     *
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function query()
+    {
+        return call_user_func("{$this->model}::query");
+    }
 }

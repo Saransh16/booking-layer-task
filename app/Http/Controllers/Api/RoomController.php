@@ -24,4 +24,11 @@ class RoomController extends Controller
 
         return response()->success($room);
     }
+
+    public function dailyOccupancy($date)
+    {
+        $occupancy = $this->service->dailyOccupancy($date);
+
+        return response()->success($occupancy);
+    }
 }

@@ -15,4 +15,15 @@ class BookingRepository implements BookingRepositoryInterface
      * @var \App\Models\Booking
      */
     private $model = Booking::class;
+
+    public function totalDailyOccupancy($date)
+    {
+        $query = $this->query();
+
+        $occupancy = $query->where('starts_at', '<=', $date)
+                            ->where('ends_at', '>=', $date)
+                            ->count();
+
+        return $occupancy;
+    }
 }
