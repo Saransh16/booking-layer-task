@@ -30,7 +30,9 @@ class CheckIfRoomIsAvailable implements Rule
 
         $room = Room::where('id', $value)->first();
 
-        return $room->isAvailable($inputs['starts_at'], $inputs['ends_at']);
+        if($room) return $room->isAvailable($inputs['starts_at'], $inputs['ends_at']);
+
+        else return true;
     }
 
     /**
