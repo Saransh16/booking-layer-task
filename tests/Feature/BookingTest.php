@@ -17,9 +17,21 @@ it('can create a booking', function () {
 
     $response = $this->post('/api/bookings', [
         'room_id' => $this->room->id,
-        'starts_at' => date($format = 'Y/m/d'),
-        'ends_at' => date($format = 'Y/m/d')
+        'starts_at' => $this->faker->date($format = 'Y/m/d'),
+        'ends_at' => $this->faker->date($format = 'Y/m/d')
     ]);
 
     $response->assertStatus(200);
+});
+
+it('can update a booking', function () {
+
+    $response = $this->post('/api/bookings', [
+        'room_id' => $this->room->id,
+        'starts_at' => $this->faker->date($format = 'Y/m/d'),
+        'ends_at' => $this->faker->date($format = 'Y/m/d')
+    ]);
+
+    $response->assertStatus(200);
+
 });
