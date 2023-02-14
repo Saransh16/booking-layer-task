@@ -80,9 +80,11 @@ trait DatabaseRepositoryTrait
      * @param  \Illuminate\Database\Eloquent\Model|int $model
      * @return bool|int
      */
-    public function update($model, array $attributes)
+    public function update($id, array $attributes)
     {
-        return ($model instanceof EloquentModel) ? $model->update($attributes) : $this->get($model)->update($attributes);
+        $model = $this->model;
+
+        return $this->get($id)->update($attributes);
     }
 
     /**

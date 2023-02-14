@@ -34,7 +34,7 @@ class RoomController extends Controller
 
         if(!$data['success']) return response()->error('No booking for the date');
 
-        return response()->success(['occupancy_rate' => $data['occupancy_rate']]);
+        else return response()->success(['occupancy_rate' => $data['occupancy_rate']]);
     }
 
     public function monthlyOccupancy($month)
@@ -45,6 +45,6 @@ class RoomController extends Controller
 
         if(!$response['success']) return response()->error('No booking for the month');
 
-        return response()->success(['occupancy_rate' => $response['occupancy_rate']]);
+        else return response()->success(['occupancy_rate' => $response['occupancy_rate']]);
     }
 }

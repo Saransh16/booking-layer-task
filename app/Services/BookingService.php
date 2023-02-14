@@ -20,4 +20,15 @@ class BookingService
         return $booking;
     }
 
+    public function update($id, $inputs)
+    {
+        $booking = $this->bookingRepo->get($id);
+
+        if(!$booking) return ['success' => false, 'message' => 'Booking not found'];
+
+        $booking = $this->bookingRepo->update($id, $inputs);
+
+        return ['success' => true];
+    }
+
 }

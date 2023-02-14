@@ -16,3 +16,4 @@ Route::post('/block', [BlockController::class, 'create']);
 
 //booking apis
 Route::post('/bookings', [BookingController::class, 'create']);
+Route::put('/bookings/{id}', [BookingController::class, 'update']);
