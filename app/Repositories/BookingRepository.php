@@ -17,22 +17,6 @@ class BookingRepository implements BookingRepositoryInterface
      */
     private $model = Booking::class;
 
-    public function totalDailyOccupancy($date, $room_ids = null)
-    {
-        $query = $this->query();
-
-        if($room_ids && count($room_ids))
-        {
-            $query = $query->whereIn('room_id', $room_ids);
-        }
-
-        $occupancy = $query->where('starts_at', '<=', $date)
-                            ->where('ends_at', '>=', $date)
-                            ->count();
-
-        return $occupancy;
-    }
-
     public function totalMonthlyOccupancy($month, $room_ids = null)
     {
         $query = $this->query();

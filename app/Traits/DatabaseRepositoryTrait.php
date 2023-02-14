@@ -40,6 +40,45 @@ trait DatabaseRepositoryTrait
         return $model;
     }
 
+
+    /**
+     * Get a model by matching its column date.
+     *
+     * @param int $id
+     * @return \Illuminate\Database\Eloquent\Model
+     */
+    public function getWhereDate($date)
+    {
+        //only applied for models that have
+        //starts_at and ends_at as columns.
+
+        $model = $this->query()->where('starts_at', '<=', $date)
+                            ->where('ends_at', '>=', $date);
+
+        return $model;
+    }
+
+    /**
+     * Get the model data by adding the given query
+     *
+     * @param  string $column
+     * @param  mixed $value
+     * @param  array $moreWhere
+     * @return \Illuminate\Database\Eloquent\Collection
+     */
+    public function getWhereIn($column, $value, array $moreWhere = null)
+    {
+        $query = $this->query()->whereIn($column, $value);
+
+        if (! is_null($moreWhere)) {
+            $query->where($moreWhere);
+        }
+
+        $models = $query->get();
+
+        return $models;
+    }
+
     /**
      * Get models by the value.
      *

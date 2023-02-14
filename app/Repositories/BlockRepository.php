@@ -17,22 +17,6 @@ class BlockRepository implements BlockRepositoryInterface
      */
     private $model = Block::class;
 
-    public function totalDailyBlock($date, $room_ids = null)
-    {
-        $query = $this->query();
-
-        if($room_ids && count($room_ids))
-        {
-            $query = $query->whereIn('room_id', $room_ids);
-        }
-
-        $block = $query->where('starts_at', '<=', $date)
-                            ->where('ends_at', '>=', $date)
-                            ->count();
-
-        return $block;
-    }
-
     public function totalMonthlyBlock($month, $room_ids = null)
     {
         $query = $this->query();

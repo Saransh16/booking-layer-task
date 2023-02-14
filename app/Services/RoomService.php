@@ -38,13 +38,13 @@ class RoomService
 
     public function dailyOccupancy($date, $room_ids)
     {
-        $occupancy = $this->bookingRepo->totalDailyOccupancy($date, $room_ids);
+        $occupancy = $this->getDailyCount('booking', $date, $room_ids);
 
         if(!$occupancy) return ['success' => false];
 
         $capacity = $this->roomRepo->totalCapacity($room_ids);
 
-        $block = $this->blockRepo->totalDailyBlock($date, $room_ids);
+        $block = $this->getDailyCount('block', $date, $room_ids);
 
         $occupancy_rate = ($occupancy) / ($capacity - $block);
 
@@ -52,6 +52,20 @@ class RoomService
         $occupancy_rate = round($occupancy_rate, 2);
 
         return ['success' => true, 'occupancy_rate' => $occupancy_rate];
+    }
+
+    public function getDailyCount($type, $date, $room_ids)
+    {
+        $repo = $type == 'booking' ? $this->bookingRepo : $this->blockRepo;
+
+        if($room_ids && count($room_ids))
+        {
+            $query = $repo->getWhereIn('room_id', $room_ids);
+        }
+
+        $query = $repo->getWhereDate($date)->count();
+
+        return $query;
     }
 
     public function monthlyOccupancy($month, $room_ids)
