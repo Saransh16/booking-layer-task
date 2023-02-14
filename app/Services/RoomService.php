@@ -81,7 +81,7 @@ class RoomService
 
         $capacity = $capacity * $days_in_month;
 
-        $block = $this->blockRepo->totalMonthlyBlock("01", $room_ids);
+        $block = $this->blockRepo->totalMonthlyBlock($month, $room_ids);
 
         $occupancy_rate = ($occupancy) / ($capacity - $block);
 
