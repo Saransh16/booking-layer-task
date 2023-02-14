@@ -17,7 +17,7 @@ class RoomFactory extends Factory
     public function definition()
     {
         return [
-            'name' => $this->faker->word,
+            'name' => fake()->word,
             'capacity' => random_int(1, 10)
         ];
     }
