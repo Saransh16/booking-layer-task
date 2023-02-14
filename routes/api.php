@@ -9,6 +9,7 @@ use App\Http\Controllers\Api\BookingController;
 //rooms apis
 Route::post('/rooms', [RoomController::class, 'create']);
 Route::get('/daily-occupancy-rates/{date}', [RoomController::class, 'dailyOccupancy']);
+Route::get('/monthly-occupancy-rates/{month}', [RoomController::class, 'monthlyOccupancy']);
 
 //blocking apis
 Route::post('/block', [BlockController::class, 'create']);

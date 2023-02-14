@@ -28,12 +28,23 @@ class RoomController extends Controller
 
     public function dailyOccupancy($date)
     {
-        $room_ids = json_decode(request()->all()['room_ids'], true);
+        $room_ids = in_array('room_ids', request()->all()) ?? json_decode(request()->all()['room_ids'], true);
 
         $data = $this->service->dailyOccupancy($date, $room_ids);
 
         if(!$data['success']) return response()->error('No booking for the date');
 
         return response()->success(['occupancy_rate' => $data['occupancy_rate']]);
+    }
+
+    public function monthlyOccupancy($month)
+    {
+        $room_ids = in_array('room_ids', request()->all()) ?? json_decode(request()->all()['room_ids'], true);
+
+        $response = $this->service->monthlyOccupancy($month, $room_ids);
+
+        if(!$response['success']) return response()->error('No booking for the month');
+
+        return response()->success(['occupancy_rate' => $response['occupancy_rate']]);
     }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use Carbon\Carbon;
 use App\Models\Booking;
 use App\Interfaces\RoomRepository;
 use App\Interfaces\BlockRepository;
@@ -46,6 +47,32 @@ class RoomService
         $block = $this->blockRepo->totalDailyBlock($date, $room_ids);
 
         $occupancy_rate = ($occupancy) / ($capacity - $block);
+
+        //round off to 2 decimals
+        $occupancy_rate = round($occupancy_rate, 2);
+
+        return ['success' => true, 'occupancy_rate' => $occupancy_rate];
+    }
+
+    public function monthlyOccupancy($month, $room_ids)
+    {
+        $occupancy = $this->bookingRepo->totalMonthlyOccupancy($month, $room_ids);
+
+        if(!$occupancy) return ['success' => false];
+
+        $capacity = $this->roomRepo->totalCapacity($room_ids);
+
+        //get number of days in a month
+        $days_in_month = Carbon::parse($month)->month($month)->daysInMonth;
+
+        $capacity = $capacity * $days_in_month;
+
+        $block = $this->blockRepo->totalMonthlyBlock("01", $room_ids);
+
+        $occupancy_rate = ($occupancy) / ($capacity - $block);
+
+        //round off to 2 decimals
+        $occupancy_rate = round($occupancy_rate, 2);
 
         return ['success' => true, 'occupancy_rate' => $occupancy_rate];
     }

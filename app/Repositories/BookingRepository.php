@@ -2,6 +2,7 @@
 
 namespace App\Repositories;
 
+use Carbon\Carbon;
 use App\Models\Booking;
 use App\Traits\DatabaseRepositoryTrait;
 use App\Interfaces\BookingRepository as BookingRepositoryInterface;
@@ -28,6 +29,29 @@ class BookingRepository implements BookingRepositoryInterface
         $occupancy = $query->where('starts_at', '<=', $date)
                             ->where('ends_at', '>=', $date)
                             ->count();
+
+        return $occupancy;
+    }
+
+    public function totalMonthlyOccupancy($month, $room_ids = null)
+    {
+        $query = $this->query();
+
+        if($room_ids && count($room_ids))
+        {
+            $query = $query->whereIn('room_id', $room_ids);
+        }
+
+        $records = $query->whereMonth('starts_at', '=', $month)
+                        ->whereMonth('ends_at', '=', $month)
+                        ->get()->toArray();
+
+        $occupancy = 0;
+
+        foreach($records as $record)
+        {
+            $occupancy += Carbon::parse($record['starts_at'])->diffInDays($record['ends_at']) + 1;
+        }
 
         return $occupancy;
     }
